@@ -18,5 +18,17 @@ pipeline {
 				echo 'Deploy'
 			}
 		}
+	} 
+	
+	post {
+		always {
+			echo 'run always'
+		}
+		success {
+			echo 'run on success'
+		}
+		failure {
+			echo 'on failure'
+		}
 	}
 }
