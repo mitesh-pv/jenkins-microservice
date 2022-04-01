@@ -1,10 +1,16 @@
 pipeline {
-	agent any
+	// agent any
+	agent {
+		docker {
+			image 'maven:3.6.3'
+		}
+	}
 
 	stages {
 		stage('Build') {
 			steps {
 				echo 'Build'
+				sh "mvn --version"
 			}
 		}
 
@@ -13,6 +19,7 @@ pipeline {
 				echo 'Tets'
 			}
 		}
+
 		stage('Deploy') {
 			steps {
 				echo 'Deploy'
@@ -20,6 +27,7 @@ pipeline {
 		}
 	} 
 	
+	// post activities
 	post {
 		always {
 			echo 'run always'
@@ -30,5 +38,7 @@ pipeline {
 		failure {
 			echo 'on failure'
 		}
+		// unstable - when test failure happens
+		// changed - when status of a build changes
 	}
 }
