@@ -2,7 +2,7 @@ pipeline {
 	// agent any
 	agent {
 		docker {
-			image '3.8.4-jdk-8-slim'
+			image '3.6.3'
 		}
 	}
 	
