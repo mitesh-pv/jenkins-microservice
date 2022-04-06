@@ -4,7 +4,7 @@ pipeline {
 	// 	docker {
 	// 		image 'node:13.8'
 	// 	}
-	}
+	// }
 	
 	stages {
 		stage('Build') {
