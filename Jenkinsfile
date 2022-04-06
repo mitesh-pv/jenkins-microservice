@@ -40,6 +40,30 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
+
+		stage ('Build Docker Image') {
+			steps {
+				// sh "docker build -t miteshpv96/jenkins-microservices:$env.BUILD_TAG"
+				script {
+					dockerImage = docker.build("miteshpv96/jenkins-microservices:${env.BUILD_TAG}")
+				}
+			}
+		}
+
+		stage("Package") {
+			steps {
+				sh "mvn package -DskipTests"
+			}
+		}
+
+		stage ('Push Docker Image') {
+			steps {
+				docker.withRegistry('', 'dockerhub') {
+					dockerImage.push();
+					dockerImage.push("latest");
+				}
+			}
+		}
 	} 
 	
 	// post activities
